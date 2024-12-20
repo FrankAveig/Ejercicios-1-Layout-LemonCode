@@ -1,0 +1,15 @@
+@mixin generate-palette($base-color, $prefix) {
+    .#{$prefix}-base-color {
+        background-color: $base-color;
+    }
+
+    @for $i from 1 through 4 {
+        .#{$prefix}-darken-#{$i} {
+            background-color: darken($base-color, $darken-step * $i);
+        }
+        
+        .#{$prefix}-lighten-#{$i} {
+            background-color: lighten($base-color, $lighten-step * $i);
+        }
+    }
+}
