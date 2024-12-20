@@ -1,22 +1,48 @@
 @use "sass:color";
+@use "sass:math";
+@use "variables" as v;
+
+@function get-contrast-color($color) {
+    @return if(color.lightness($color) > 50%, #000, #fff);
+}
 
 @mixin generate-palette($base-color, $prefix) {
-    .#{$prefix}-base-color {
+    $base-selector: ".#{$prefix}-base-color";
+    
+    #{$base-selector} {
         background-color: $base-color;
-        color: if(color.channel($base-color, "lightness", $space: hsl) > 50%, #000, #fff);
+        color: get-contrast-color($base-color);
     }
+
     @for $i from 1 through 4 {
-        $darker: color.adjust($base-color, $lightness: -$darken-step * $i);
-        $lighter: color.adjust($base-color, $lightness: $lighten-step * $i);
+        $darker: color.scale($base-color, $lightness: -$i * v.$darken-step);
+        $lighter: color.scale($base-color, $lightness: $i * v.$lighten-step);
         
         .#{$prefix}-darken-#{$i} {
             background-color: $darker;
-            color: if(color.channel($darker, "lightness", $space: hsl) > 50%, #000, #fff);
+            color: get-contrast-color($darker);
         }
          
         .#{$prefix}-lighten-#{$i} {
             background-color: $lighter;
-            color: if(color.channel($lighter, "lightness", $space: hsl) > 50%, #000, #fff);
+            color: get-contrast-color($lighter);
         }
     }
 }  
+
+@mixin color-box {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}

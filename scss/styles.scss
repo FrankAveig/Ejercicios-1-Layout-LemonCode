@@ -1,19 +1,5 @@
-@import './variables';
-@import './mixins';
-@mixin color-box {
-    width: 100px;
-    height: 100px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    transition: transform 0.2s;
-
-    &:hover {
-        transform: scale(1.05);
-    }
-}
+@use './variables' as v;
+@use './mixins' as m;
 
 .container-1 {
     display: flex;
@@ -33,7 +19,7 @@
 }
 
 .box {
-    @include color-box;
+    @include m.color-box;
 }
 
 .color-box-text {
@@ -42,6 +28,6 @@
     font-size: 14px;
 }
 
-@include generate-palette($base-color-1, "palette1");
-@include generate-palette($base-color-2, "palette2");
-@include generate-palette($base-color-3, "palette3");  
+@include m.generate-palette(v.$base-color-1, "palette1");
+@include m.generate-palette(v.$base-color-2, "palette2");
+@include m.generate-palette(v.$base-color-3, "palette3");  
