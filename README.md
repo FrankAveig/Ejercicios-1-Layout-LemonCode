@@ -39,51 +39,58 @@ Este ejercicio demuestra la creación de paletas de colores dinámicas utilizand
 ### Variables (\_variables.scss)
 
 ```scss
-$base-color-1: #3498db; // Azul
-$base-color-2: #e74c3c; // Rojo
-$base-color-3: #2ecc71; // Verde
-$darken-step: 7%; // Paso de oscurecimiento
-$lighten-step: 7%; // Paso de aclarado
+$base-color-1: #3498db;
+$base-color-2: #e74c3c;
+$base-color-3: #2ecc71;
+$darken-step: 7%;
+$lighten-step: 7%;
 ```
 
-### Cálculo de Colores
-
-El proyecto utiliza un sistema de cálculo de colores basado en:
-
-1. **Ajuste de Luminosidad**
+### Función de Generación de Paletas (\_mixins.scss)
 
 ```scss
-// Para oscurecer un color
-background-color: color.adjust($base-color, $lightness: -7%); // 7% más oscuro
-background-color: color.adjust($base-color, $lightness: -14%); // 14% más oscuro
-background-color: color.adjust($base-color, $lightness: -21%); // 21% más oscuro
-background-color: color.adjust($base-color, $lightness: -28%); // 28% más oscuro
+@use "sass:color";
 
-// Para aclarar un color
-background-color: color.adjust($base-color, $lightness: 7%); // 7% más claro
-background-color: color.adjust($base-color, $lightness: 14%); // 14% más claro
-background-color: color.adjust($base-color, $lightness: 21%); // 21% más claro
-background-color: color.adjust($base-color, $lightness: 28%); // 28% más claro
+@mixin generate-palette($base-color, $prefix) {
+  .#{$prefix}-base-color {
+    background-color: $base-color;
+    color: if(
+      color.channel($base-color, "lightness", $space: hsl) > 50%,
+      #000,
+      #fff
+    );
+  }
+  @for $i from 1 through 4 {
+    $darker: color.adjust($base-color, $lightness: -$darken-step * $i);
+    $lighter: color.adjust($base-color, $lightness: $lighten-step * $i);
+
+    .#{$prefix}-darken-#{$i} {
+      background-color: $darker;
+      color: if(
+        color.channel($darker, "lightness", $space: hsl) > 50%,
+        #000,
+        #fff
+      );
+    }
+
+    .#{$prefix}-lighten-#{$i} {
+      background-color: $lighter;
+      color: if(
+        color.channel($lighter, "lightness", $space: hsl) > 50%,
+        #000,
+        #fff
+      );
+    }
+  }
+}
 ```
 
-2. **Cálculo de Contraste**
+### Aplicación de las Paletas (styles.scss)
 
 ```scss
-// Obtener la luminosidad del color de fondo
-$luminosity: color.channel($background, "lightness", $space: hsl);
-
-// Decidir color de texto basado en luminosidad
-color: if($luminosity > 50%, #000, #fff);
-```
-
-### Generación de Paletas
-
-Cada paleta se genera usando el mixin con diferentes prefijos:
-
-```scss
-@include generate-palette($base-color-1, "palette1"); // Paleta Azul
-@include generate-palette($base-color-2, "palette2"); // Paleta Roja
-@include generate-palette($base-color-3, "palette3"); // Paleta Verde
+@include generate-palette($base-color-1, "palette1");
+@include generate-palette($base-color-2, "palette2");
+@include generate-palette($base-color-3, "palette3");
 ```
 
 ## 🚀 Cómo usar
