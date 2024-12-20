@@ -38,11 +38,11 @@ Este ejercicio demuestra la creación de paletas de colores dinámicas utilizand
 ### Variables (\_variables.scss)
 
 ```scss
-$base-color-1: #3498db; // Azul
-$base-color-2: #e74c3c; // Rojo
-$base-color-3: #2ecc71; // Verde
-$darken-step: 7%; // Paso de oscurecimiento
-$lighten-step: 7%; // Paso de aclarado
+$base-color-1: #3498db;
+$base-color-2: #e74c3c;
+$base-color-3: #2ecc71;
+$darken-step: 7%;
+$lighten-step: 7%;
 ```
 
 ### Mixins (\_mixins.scss)
