@@ -1,15 +1,22 @@
+@use "sass:color";
+
 @mixin generate-palette($base-color, $prefix) {
     .#{$prefix}-base-color {
         background-color: $base-color;
+        color: if(color.channel($base-color, "lightness", $space: hsl) > 50%, #000, #fff);
     }
-
     @for $i from 1 through 4 {
-        .#{$prefix}-darken-#{$i} {
-            background-color: darken($base-color, $darken-step * $i);
-        }
+        $darker: color.adjust($base-color, $lightness: -$darken-step * $i);
+        $lighter: color.adjust($base-color, $lightness: $lighten-step * $i);
         
+        .#{$prefix}-darken-#{$i} {
+            background-color: $darker;
+            color: if(color.channel($darker, "lightness", $space: hsl) > 50%, #000, #fff);
+        }
+         
         .#{$prefix}-lighten-#{$i} {
-            background-color: lighten($base-color, $lighten-step * $i);
+            background-color: $lighter;
+            color: if(color.channel($lighter, "lightness", $space: hsl) > 50%, #000, #fff);
         }
     }
-}
+}  
