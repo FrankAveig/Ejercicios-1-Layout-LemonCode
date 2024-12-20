@@ -74,17 +74,3 @@ Cada paleta se genera usando el mixin con diferentes prefijos:
    ```bash
    npm run dev
    ```
-
-## 🎯 Objetivos del Ejercicio
-
-- Practicar el uso de Sass para crear sistemas de color dinámicos
-- Implementar funciones de color de Sass
-- Crear código reutilizable usando mixins
-- Organizar código Sass en módulos
-
-## 📚 Aprendizajes Clave
-
-- Uso de funciones de color en Sass (darken/lighten)
-- Implementación de mixins para generar clases dinámicas
-- Organización modular de código Sass
-- Manipulación dinámica de colores
