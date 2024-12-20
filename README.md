@@ -104,17 +104,3 @@ $lighten-step: 7%;
    ```bash
    npm run dev
    ```
-
-## 🎯 Objetivos del Ejercicio
-
-- Crear un sistema de paletas de color dinámico
-- Implementar cálculos automáticos de luminosidad
-- Asegurar un contraste óptimo para la accesibilidad
-- Practicar la organización modular de código Sass
-
-## 📚 Aprendizajes Clave
-
-- Cálculo de variaciones de color usando porcentajes
-- Determinación automática del color de texto basado en luminosidad
-- Generación dinámica de paletas de color
-- Organización de código Sass en módulos
