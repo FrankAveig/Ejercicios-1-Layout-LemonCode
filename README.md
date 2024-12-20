@@ -10,11 +10,11 @@ Este ejercicio demuestra la creación de paletas de colores dinámicas utilizand
   - Color base
   - 4 tonos más claros
 - Contraste automático del texto (negro o blanco)
-- Uso de características modernas de Sass:
-  - Módulo de color (@use "sass:color")
+- Uso de características de Sass:
   - Variables
   - Mixins
   - Bucles
+  - Cálculos de color
 
 ## 📁 Estructura del Proyecto
 
@@ -30,7 +30,7 @@ Este ejercicio demuestra la creación de paletas de colores dinámicas utilizand
 ## 🛠️ Tecnologías Utilizadas
 
 - HTML5
-- Sass (con funciones modernas de color)
+- Sass
 - Variables CSS
 - Flexbox para el layout
 
@@ -39,61 +39,51 @@ Este ejercicio demuestra la creación de paletas de colores dinámicas utilizand
 ### Variables (\_variables.scss)
 
 ```scss
-$base-color-1: #3498db;
-$base-color-2: #e74c3c;
-$base-color-3: #2ecc71;
-$darken-step: 7%;
-$lighten-step: 7%;
+$base-color-1: #3498db; // Azul
+$base-color-2: #e74c3c; // Rojo
+$base-color-3: #2ecc71; // Verde
+$darken-step: 7%; // Paso de oscurecimiento
+$lighten-step: 7%; // Paso de aclarado
 ```
 
-### Funciones Modernas de Sass
+### Cálculo de Colores
 
-El proyecto utiliza las funciones más recientes de Sass para manipulación de colores:
+El proyecto utiliza un sistema de cálculo de colores basado en:
 
-1. **color.adjust()**
+1. **Ajuste de Luminosidad**
 
 ```scss
-// Para oscurecer
-$darker: color.adjust($base-color, $lightness: -$darken-step);
-// Para aclarar
-$lighter: color.adjust($base-color, $lightness: $lighten-step);
+// Para oscurecer un color
+background-color: color.adjust($base-color, $lightness: -7%); // 7% más oscuro
+background-color: color.adjust($base-color, $lightness: -14%); // 14% más oscuro
+background-color: color.adjust($base-color, $lightness: -21%); // 21% más oscuro
+background-color: color.adjust($base-color, $lightness: -28%); // 28% más oscuro
+
+// Para aclarar un color
+background-color: color.adjust($base-color, $lightness: 7%); // 7% más claro
+background-color: color.adjust($base-color, $lightness: 14%); // 14% más claro
+background-color: color.adjust($base-color, $lightness: 21%); // 21% más claro
+background-color: color.adjust($base-color, $lightness: 28%); // 28% más claro
 ```
 
-2. **color.channel()**
+2. **Cálculo de Contraste**
 
 ```scss
-// Obtener la luminosidad en espacio HSL
-color.channel($color, "lightness", $space: hsl)
+// Obtener la luminosidad del color de fondo
+$luminosity: color.channel($background, "lightness", $space: hsl);
+
+// Decidir color de texto basado en luminosidad
+color: if($luminosity > 50%, #000, #fff);
 ```
-
-### Contraste Automático
-
-El texto se ajusta automáticamente entre negro y blanco según la luminosidad del fondo:
-
-```scss
-color: if(
-  color.channel($background, "lightness", $space: hsl) > 50%,
-  #000,
-  #fff
-);
-```
-
-### Mixins (\_mixins.scss)
-
-El mixin principal `generate-palette` toma un color base y genera:
-
-- Una clase para el color base
-- 4 variaciones más oscuras (usando darken)
-- 4 variaciones más claras (usando lighten)
 
 ### Generación de Paletas
 
 Cada paleta se genera usando el mixin con diferentes prefijos:
 
 ```scss
-@include generate-palette($base-color-1, "palette1");
-@include generate-palette($base-color-2, "palette2");
-@include generate-palette($base-color-3, "palette3");
+@include generate-palette($base-color-1, "palette1"); // Paleta Azul
+@include generate-palette($base-color-2, "palette2"); // Paleta Roja
+@include generate-palette($base-color-3, "palette3"); // Paleta Verde
 ```
 
 ## 🚀 Cómo usar
@@ -110,14 +100,14 @@ Cada paleta se genera usando el mixin con diferentes prefijos:
 
 ## 🎯 Objetivos del Ejercicio
 
-- Implementar funciones modernas de color de Sass
 - Crear un sistema de paletas de color dinámico
+- Implementar cálculos automáticos de luminosidad
 - Asegurar un contraste óptimo para la accesibilidad
 - Practicar la organización modular de código Sass
 
 ## 📚 Aprendizajes Clave
 
-- Uso de funciones modernas de Sass (color.adjust, color.channel)
-- Cálculo automático de contraste para texto
-- Generación dinámica de variaciones de color
+- Cálculo de variaciones de color usando porcentajes
+- Determinación automática del color de texto basado en luminosidad
+- Generación dinámica de paletas de color
 - Organización de código Sass en módulos
