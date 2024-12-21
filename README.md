@@ -1,6 +1,6 @@
-# Ejercicio de Paletas de Colores con Sass
+# 🍋 Ejercicio 1: Layout Lemoncode
 
-Este ejercicio demuestra la creación de paletas de colores dinámicas utilizando Sass. A partir de tres colores base, generamos automáticamente variaciones más claras y más oscuras, asegurando un contraste óptimo para el texto.
+Creación de paletas de colores dinámicas utilizando Sass. A partir de tres colores base, generamos automáticamente variaciones más claras y más oscuras, asegurando un contraste óptimo para el texto.
 
 ## 🎨 Características
 
